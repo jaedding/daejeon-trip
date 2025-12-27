@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>대전 여행 장소 가이드</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;600;800&display=swap');
+    body { font-family: 'Pretendard', sans-serif; }
+    .card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 15px 25px rgba(0,0,0,0.08);
+    }
+  </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+<header class="bg-white shadow sticky top-0 z-50">
+  <div class="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
+    <h1 class="text-xl font-bold">대전 여행 가이드</h1>
+    <nav class="space-x-4 text-sm">
+      <a href="#spot">명소</a>
+      <a href="#food">식당</a>
+      <a href="#cafe">카페</a>
+      <a href="#shop">소품샵</a>
+      <a href="#hotel">숙소</a>
+    </nav>
+  </div>
+</header>
+
+<section class="max-w-6xl mx-auto px-4 py-10">
+  <p class="text-center text-gray-600 mb-10">
+    📍 장소를 클릭하면 네이버 지도로 이동합니다
+  </p>
+
+  <div id="spot" class="mb-12">
+    <h2 class="text-2xl font-bold mb-4">🏛 명소</h2>
+    <div class="grid md:grid-cols-3 gap-6">
+      <a class="card bg-white p-5 rounded-xl transition" target="_blank" href="https://map.naver.com/v5/search/대전엑스포공원">대전엑스포공원</a>
+      <a class="card bg-white p-5 rounded-xl transition" target="_blank" href="https://map.naver.com/v5/search/한밭수목원">한밭수목원</a>
+      <a class="card bg-white p-5 rounded-xl transition" target="_blank" href="https://map.naver.com/v5/search/국립중앙과학관">국립중앙과학관 천체관</a>
+    </div>
+  </div>
+
+  <div id="food" class="mb-12">
+    <h2 class="text-2xl font-bold mb-4">🍽 식당</h2>
+    <div class="grid md:grid-cols-3 gap-6">
+      <a class="card bg-white p-5 rounded-xl transition" target="_blank" href="https://map.naver.com/v5/search/미도리카레 대전">미도리카레</a>
+      <a class="card bg-white p-5 rounded-xl transition" target="_blank" href="https://map.naver.com/v5/search/치앙마이방콕 대전">치앙마이방콕</a>
+      <a class="card bg-white p-5 rounded-xl transition" target="_blank" href="https://map.naver.com/v5/search/솟닷 대전">솟닷</a>
+    </div>
+  </div>
+
+  <div id="cafe" class="mb-12">
+    <h2 class="text-2xl font-bold mb-4">☕ 카페</h2>
+    <div class="grid md:grid-cols-3 gap-6">
+      <a class="card bg-white p-5 rounded-xl transition" target="_blank" href="https://map.naver.com/v5/search/챔프스페이스커피로스터스">챔프스페이스 커피</a>
+      <a class="card bg-white p-5 rounded-xl transition" target="_blank" href="https://map.naver.com/v5/search/오시우커피">오시우커피</a>
+      <a class="card bg-white p-5 rounded-xl transition" target="_blank" href="https://map.naver.com/v5/search/카페사나고">카페 사나고</a>
+    </div>
+  </div>
+
+  <div id="shop" class="mb-12">
+    <h2 class="text-2xl font-bold mb-4">🛍 소품샵</h2>
+    <div class="grid md:grid-cols-3 gap-6">
+      <a class="card bg-white p-5 rounded-xl transition" target="_blank" href="https://map.naver.com/v5/search/소품샵마중">소품샵 마중</a>
+      <a class="card bg-white p-5 rounded-xl transition" target="_blank" href="https://map.naver.com/v5/search/키치키치 대전">키치키치</a>
+      <a class="card bg-white p-5 rounded-xl transition" target="_blank" href="https://map.naver.com/v5/search/너티하우스 대전">너티하우스</a>
+    </div>
+  </div>
+
+  <div id="hotel" class="mb-12">
+    <h2 class="text-2xl font-bold mb-4">🏨 숙소</h2>
+    <div class="grid md:grid-cols-3 gap-6">
+      <a class="card bg-white p-5 rounded-xl transition" target="_blank" href="https://map.naver.com/v5/search/로지호텔 대전">로지호텔</a>
+    </div>
+  </div>
+</section>
+
+<footer class="text-center text-sm text-gray-400 py-6">
+  © 대전 여행 가이드
+</footer>
+
+</body>
+</html>
