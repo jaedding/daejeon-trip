@@ -3,160 +3,235 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>2025-2026 대전 연말 힐링 투어</title>
+    <title>2025-2026 대전 연말 힐링 투어 - 완결판</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;600;800&display=swap');
-        :root { --holiday-red: #D42426; --holiday-gold: #D4B483; }
-        body { font-family: 'Pretendard', sans-serif; background-color: #FFFDFB; }
-        .holiday-bg {
-            background: linear-gradient(rgba(255,255,255,0.85), rgba(255,255,255,0.85)), 
-                        url('https://images.unsplash.com/photo-1543589077-47d816067f70?q=80&w=2000');
-            background-size: cover; background-attachment: fixed;
+        :root { --holiday-red: #D42426; --holiday-gold: #D4B483; --deep-blue: #1a2a6c; }
+        
+        body { 
+            font-family: 'Pretendard', sans-serif; 
+            background: linear-gradient(to bottom, #1a2a6c, #b21f1f, #fdbb2d); /* 화사하면서도 눈이 잘 보이는 노을/연말 배경 */
+            background-attachment: fixed;
+            color: #fff;
+            margin: 0;
+            overflow-x: hidden;
         }
-        .nav-active { color: var(--holiday-red); border-bottom: 3px solid var(--holiday-red); }
+
+        /* 눈송이가 잘 보이도록 그림자 효과 추가 */
+        .snow {
+            position: fixed;
+            top: -10px;
+            color: white;
+            text-shadow: 0 0 5px rgba(255,255,255,0.8);
+            pointer-events: none;
+            z-index: 9999;
+            animation: fall linear infinite;
+        }
+
+        @keyframes fall {
+            to { transform: translateY(105vh) rotate(360deg); }
+        }
+
+        .nav-btn { transition: all 0.3s; color: rgba(255,255,255,0.7); }
+        .nav-btn.nav-active { color: #fff; border-bottom: 3px solid white; }
+
+        .place-card {
+            background: rgba(255, 255, 255, 0.95);
+            color: #333;
+            border-radius: 2rem;
+            overflow: hidden;
+            transition: transform 0.3s;
+        }
+        .place-card:hover { transform: translateY(-10px); }
+
         .tab-content { display: none; }
         .tab-content.active { display: block; }
-        .category-tab.active { background: var(--holiday-red); color: white; }
-        .snow { position: fixed; top: -10px; color: white; pointer-events: none; z-index: 999; animation: fall linear infinite; }
-        @keyframes fall { to { transform: translateY(105vh) rotate(360deg); } }
+        
+        .chart-container { position: relative; height: 150px; width: 100%; }
     </style>
 </head>
-<body class="holiday-bg text-slate-800">
+<body>
     <div id="snow-container"></div>
 
     <header class="pt-20 pb-16 text-center">
-        <div class="inline-block bg-red-100 text-red-600 px-4 py-1 rounded-full text-xs font-bold mb-4">🎄 2025.12.30 - 2026.01.01 SPECIAL</div>
-        <h1 class="text-5xl font-black mb-4 text-slate-900">대전 <span class="text-red-600">빵</span>긋 연말 가이드</h1>
-        <p class="text-slate-500 italic">화사한 연말 분위기와 함께하는 37곳의 힐링 스팟</p>
+        <div class="inline-block bg-white/20 backdrop-blur-md px-4 py-1 rounded-full text-xs font-bold mb-4">🎄 2025.12.30 - 2026.01.01</div>
+        <h1 class="text-5xl font-black mb-4">대전 <span class="text-yellow-300">빵</span>긋 연말 가이드</h1>
+        <p class="opacity-90">37곳의 모든 장소 분석과 상세 설명이 포함된 완결판입니다.</p>
     </header>
 
-    <nav class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-red-50 flex justify-center gap-8 shadow-sm">
-        <button onclick="switchTab('itinerary')" class="nav-btn nav-active py-4 font-bold">📅 일정</button>
-        <button onclick="switchTab('all-places')" class="nav-btn text-slate-400 py-4 font-bold">📍 장소</button>
-        <button onclick="switchTab('food-stats')" class="nav-btn text-slate-400 py-4 font-bold">🍢 분석</button>
+    <nav class="sticky top-0 z-50 bg-black/30 backdrop-blur-lg border-b border-white/10 flex justify-center gap-8 shadow-lg">
+        <button onclick="switchTab('itinerary')" class="nav-btn nav-active py-5 font-bold">📅 여행 일정</button>
+        <button onclick="switchTab('all-places')" class="nav-btn py-5 font-bold">📍 장소별 분석</button>
     </nav>
 
     <main class="max-w-6xl mx-auto p-6 mt-8">
         <section id="itinerary" class="tab-content active">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div class="bg-white p-6 rounded-[2rem] shadow-xl border-t-4 border-red-500">
-                    <h3 class="text-xl font-bold text-red-600 mb-4">12/30 (화)</h3>
-                    <ul class="text-sm space-y-3 text-slate-600">
-                        <li>📍 <b>바로그집</b> 점심 식사</li>
-                        <li>📍 <b>성심당 본점/부띠끄</b> 쇼핑</li>
-                        <li>📍 <b>로지호텔</b> 체크인</li>
-                    </ul>
+             <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-slate-800">
+                <div class="place-card p-8 border-t-8 border-red-500">
+                    <h3 class="text-2xl font-black mb-4">12월 30일</h3>
+                    <p class="text-sm">대전역 도착 → 바로그집 점심 → 성심당 본점 쇼핑 → 로지호텔 체크인 → 별난집 저녁</p>
                 </div>
-                <div class="bg-white p-6 rounded-[2rem] shadow-xl border-t-4 border-amber-500">
-                    <h3 class="text-xl font-bold text-amber-600 mb-4">12/31 (수)</h3>
-                    <ul class="text-sm space-y-3 text-slate-600">
-                        <li>📍 <b>한밭수목원</b> 산책</li>
-                        <li>📍 <b>소품샵 투어</b> (프렐류드 등)</li>
-                        <li>📍 <b>엑스포공원</b> 카운트다운</li>
-                    </ul>
+                <div class="place-card p-8 border-t-8 border-yellow-500">
+                    <h3 class="text-2xl font-black mb-4">12월 31일</h3>
+                    <p class="text-sm">국립중앙과학관 → 한밭수목원 → 미도리카레 점심 → 소품샵 투어 → 엑스포공원 카운트다운</p>
                 </div>
-                <div class="bg-white p-6 rounded-[2rem] shadow-xl border-t-4 border-green-600">
-                    <h3 class="text-xl font-bold text-green-700 mb-4">01/01 (목)</h3>
-                    <ul class="text-sm space-y-3 text-slate-600">
-                        <li>📍 <b>치앙마이방콕</b> 새해 점심</li>
-                        <li>📍 <b>윈터커피로스터스</b> 휴식</li>
-                        <li>📍 여행 마무리</li>
-                    </ul>
+                <div class="place-card p-8 border-t-8 border-green-500">
+                    <h3 class="text-2xl font-black mb-4">1월 1일</h3>
+                    <p class="text-sm">소제동 치앙마이방콕 새해 점심 → 윈터커피로스터스 → 성심당 옛맛솜씨 선물구매 → 귀가</p>
                 </div>
             </div>
         </section>
 
         <section id="all-places" class="tab-content">
-            <div class="flex justify-center gap-2 mb-8">
-                <button onclick="filterItems('all')" class="category-tab active px-4 py-2 rounded-full border text-xs font-bold">전체</button>
-                <button onclick="filterItems('음식점')" class="category-tab px-4 py-2 rounded-full border text-xs font-bold bg-white">🍽️ 음식점</button>
-                <button onclick="filterItems('카페')" class="category-tab px-4 py-2 rounded-full border text-xs font-bold bg-white">☕ 카페</button>
-                <button onclick="filterItems('관광')" class="category-tab px-4 py-2 rounded-full border text-xs font-bold bg-white">🎡 관광</button>
-            </div>
-            <div id="grid-container" class="grid grid-cols-1 md:grid-cols-3 gap-6"></div>
-        </section>
-
-        <section id="food-stats" class="tab-content">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="bg-white p-6 rounded-[2rem] shadow-lg">
-                    <h4 class="text-center font-bold mb-4">바로그집 (꾸덕함 중심)</h4>
-                    <canvas id="chart-baro"></canvas>
-                </div>
+            <div id="grid-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 </div>
         </section>
     </main>
 
     <script>
+        // 37개 장소 전체 데이터 (상세 설명 + 분석 수치 포함)
         const locations = [
-            { name: "바로그집", cate: "음식점", desc: "대전 대표 '아이스크림' 떡볶이 맛집", img: "https://images.unsplash.com/photo-1491333078588-55b6733c79e0?q=80&w=400" },
-            { name: "성심당 본점", cate: "카페", desc: "설명이 필요 없는 대전의 심장", img: "https://images.unsplash.com/photo-1509440159596-0249088772ff?q=80&w=400" },
-            { name: "대전엑스포공원", cate: "관광", desc: "꿈돌이와 함께하는 아름다운 야경", img: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=400" },
-            // 나머지 37개 데이터 추가...
+            // [음식점]
+            { name: "바로그집", cate: "음식점", desc: "분유가 들어간 듯 꾸덕하고 달콤한 독보적 소스의 떡볶이 맛집입니다.", stats: [95, 80, 70, 90, 85], labels: ['꾸덕함', '달콤함', '매콤함', '중독성', '가성비'], img: "food" },
+            { name: "별난집", cate: "음식점", desc: "매콤한 두부두루치기와 면사리의 조화가 일품인 대전 노포 식당입니다.", stats: [60, 40, 95, 85, 90], labels: ['담백함', '달콤함', '매콤함', '전통미', '가성비'], img: "food" },
+            { name: "공주얼큰이칼국수", cate: "음식점", desc: "쑥갓을 넣어 먹는 대전식 매운 칼국수의 원조급 맛을 자랑합니다.", stats: [50, 30, 98, 80, 90], labels: ['진한맛', '개운함', '매콤함', '중독성', '가성비'], img: "noodle" },
+            { name: "홀스타코", cate: "음식점", desc: "이국적인 인테리어와 정통 타코의 맛을 선사하는 힙한 음식점입니다.", stats: [85, 70, 60, 95, 75], labels: ['이국적', '신선도', '매콤함', '분위기', '가성비'], img: "taco" },
+            { name: "미도리카레", cate: "음식점", desc: "정성 가득한 토핑과 진한 카레가 매력적인 일본식 카레 전문점입니다.", stats: [80, 75, 50, 90, 80], labels: ['진한맛', '부드러움', '비주얼', '분위기', '친절도'], img: "curry" },
+            { name: "치앙마이방콕", cate: "음식점", desc: "숲속에 온 듯한 신비로운 분위기에서 즐기는 태국 요리 맛집입니다.", stats: [70, 60, 75, 98, 65], labels: ['이국적', '향신료', '매콤함', '분위기', '특별함'], img: "thai" },
+            { name: "화양연화", cate: "음식점", desc: "영화 같은 조명 아래에서 즐기는 감각적인 퓨전 중식 레스토랑입니다.", stats: [75, 65, 70, 95, 70], labels: ['풍미', '깔끔함', '비주얼', '분위기', '희소성'], img: "chinese" },
+            { name: "솟닷", cate: "음식점", desc: "따끈한 솥밥 한 상으로 건강하고 든든한 한 끼를 제공하는 곳입니다.", stats: [90, 50, 30, 85, 80], labels: ['든든함', '담백함', '영양가', '정갈함', '가성비'], img: "rice" },
+            { name: "수연분식", cate: "음식점", desc: "오랜 세월 자리를 지킨 시장 떡볶이의 정석을 맛볼 수 있습니다.", stats: [60, 75, 80, 70, 98], labels: ['추억맛', '달콤함', '매콤함', '정겨움', '가성비'], img: "snacks" },
+            { name: "에이스분식", cate: "음식점", desc: "바삭한 튀김과 떡볶이의 궁합이 뛰어난 로컬 분식 맛집입니다.", stats: [65, 70, 75, 75, 95], labels: ['바삭함', '달콤함', '매콤함', '접근성', '가성비'], img: "snacks" },
+            
+            // [카페]
+            { name: "성심당본점", cate: "카페", desc: "대전 여행의 시작과 끝, 튀김소보로의 본거지이자 빵의 성지입니다.", stats: [95, 90, 20, 98, 90], labels: ['다양성', '당도', '독창성', '명성', '회전율'], img: "bakery" },
+            { name: "성심당케익부띠끄", cate: "카페", desc: "비주얼에 한 번, 맛에 두 번 반하는 프리미엄 디저트 전용관입니다.", stats: [80, 98, 10, 95, 85], labels: ['예쁨', '당도', '비주얼', '고급짐', '만족도'], img: "cake" },
+            { name: "챔프스페이스", cate: "카페", desc: "커피 애호가들이 인정하는 수준 높은 로스팅 커피를 제공합니다.", stats: [98, 40, 10, 90, 80], labels: ['커피맛', '바디감', '산미', '전문성', '안락함'], img: "coffee" },
+            { name: "오시우커피", cate: "카페", desc: "흑임자 아이스크림과 라떼의 고소한 만남이 매력적인 핫플입니다.", stats: [85, 85, 10, 95, 80], labels: ['고소함', '당도', '독창성', '분위기', '사진빨'], img: "latte" },
+            { name: "카페사나고", cate: "카페", desc: "3D 펜 유튜버 사나고의 작품을 직관하며 커피를 즐기는 이색 카페입니다.", stats: [70, 60, 10, 99, 75], labels: ['창의성', '볼거리', '재미', '특별함', '청결도'], img: "creative" },
+            { name: "윈터커피로스터스", cate: "카페", desc: "소제동의 고즈넉한 풍경과 어울리는 깊은 맛의 커피 전문점입니다.", stats: [90, 50, 10, 85, 85], labels: ['깊은맛', '조용함', '산미', '감성', '친절도'], img: "coffee" },
+            { name: "브리즈오브", cate: "카페", desc: "햇살 가득한 창가에서 여유를 즐기기 좋은 감성 충만한 공간입니다.", stats: [75, 70, 10, 90, 80], labels: ['채광', '디저트', '편안함', '분위기', '포토존'], img: "cafe" },
+            { name: "모노스톤", cate: "카페", desc: "모던하고 미니멀한 인테리어가 돋보이는 소제동의 힙한 카페입니다.", stats: [80, 60, 10, 92, 75], labels: ['세련미', '깔끔함', '독창성', '분위기', '무드'], img: "cafe" },
+            { name: "일렁임", cate: "카페", desc: "차분하게 마음을 가라앉히기 좋은 따뜻한 조명의 공간입니다.", stats: [70, 75, 10, 88, 85], labels: ['아늑함', '차맛', '조용함', '감성', '안정감'], img: "tea" },
+            { name: "인히얼", cate: "카페", desc: "부드러운 케이크와 따뜻한 라떼가 맛있는 동네 골목 대장 카페입니다.", stats: [75, 85, 10, 85, 85], labels: ['부드러움', '달콤함', '편안함', '친근함', '맛'], img: "cake" },
+            { name: "너티하우스", cate: "카페", desc: "너티 크림의 고소함이 폭발하는 시그니처 메뉴가 유명합니다.", stats: [95, 80, 10, 90, 80], labels: ['고소함', '당도', '비주얼', '힙함', '맛'], img: "nut" },
+            { name: "오르또", cate: "카페", desc: "세련된 도심 속 휴식을 제공하는 감각적인 인테리어의 카페입니다.", stats: [80, 70, 10, 92, 80], labels: ['모던함', '편의성', '사진', '분위기', '깔끔함'], img: "cafe" },
+            { name: "성심당 옛맛솜씨", cate: "카페", desc: "전통 만주와 양갱 등 옛 맛을 현대적으로 재해석한 공간입니다.", stats: [60, 85, 10, 95, 85], labels: ['전통성', '달콤함', '포장', '명성', '정성'], img: "korean" },
+
+            // [관광/쇼핑]
+            { name: "대전엑스포공원", cate: "관광", desc: "한빛탑과 음악분수, 그리고 화려한 카운트다운을 즐길 수 있습니다.", stats: [10, 10, 10, 99, 90], labels: ['야경', '역사성', '규모', '볼거리', '접근성'], img: "night" },
+            { name: "한밭수목원", cate: "관광", desc: "겨울의 고요함이 아름다운 전국 최대 규모의 도심 수목원입니다.", stats: [10, 10, 10, 95, 98], labels: ['자연', '규모', '힐링', '산책로', '무료'], img: "park" },
+            { name: "국립중앙과학관", cate: "관광", desc: "우주의 신비를 체험하는 천체 투영관과 과학 전시가 가득합니다.", stats: [10, 10, 10, 95, 95], labels: ['유익함', '규모', '교육', '체험', '접근성'], img: "science" },
+            { name: "성심당문화원", cate: "관광", desc: "성심당의 철학과 에코 라이프스타일을 체험하는 공간입니다.", stats: [30, 10, 10, 90, 85], labels: ['전시', '에코', '볼거리', '감성', '휴식'], img: "culture" },
+            { name: "로지호텔", cate: "관광", desc: "여행의 피로를 녹여줄 따스하고 감성적인 디자인 호텔입니다.", stats: [10, 10, 10, 92, 85], labels: ['청결', '친절', '무드', '편안함', '위치'], img: "hotel" },
+            { name: "소제예찬1927", cate: "관광", desc: "소제동의 역사를 보존하며 예술적 영감을 나누는 공간입니다.", stats: [10, 10, 10, 88, 90], labels: ['역사', '예술', '조용함', '풍경', '보존'], img: "history" },
+            { name: "프렐류드(the prelude shop)", cate: "쇼핑", desc: "문구 덕후들의 성지, 감각적인 필기구와 종이가 가득합니다.", stats: [10, 10, 10, 98, 80], labels: ['감도', '다양성', '유니크', '쇼핑잼', '비주얼'], img: "shop" },
+            { name: "히든토이", cate: "쇼핑", desc: "귀여운 캐릭터 피규어와 랜덤 가챠의 즐거움이 가득한 곳입니다.", stats: [10, 10, 10, 90, 85], labels: ['귀여움', '희소성', '재미', '쇼핑잼', '종류'], img: "toy" },
+            { name: "소품샵 마중", cate: "쇼핑", desc: "핸드메이드 소품이 주는 따뜻한 감성을 만날 수 있는 가게입니다.", stats: [10, 10, 10, 85, 90], labels: ['수공예', '정겨움', '비주얼', '쇼핑잼', '가성비'], img: "gift" },
+            { name: "폴라잇", cate: "쇼핑", desc: "반짝이는 액세서리와 유니크한 소품들이 눈을 즐겁게 합니다.", stats: [10, 10, 10, 88, 80], labels: ['화려함', '유니크', '비주얼', '쇼핑잼', '포장'], img: "gift" },
+            { name: "소소로와", cate: "쇼핑", desc: "대전 작가들의 감성을 한데 모은 아기자기한 편집숍입니다.", stats: [10, 10, 10, 95, 85], labels: ['지역색', '다양성', '비주얼', '쇼핑잼', '작가굿즈'], img: "gift" },
+            { name: "에쿠보야", cate: "쇼핑", desc: "일본 빈티지 감성이 가득한 귀여운 잡화들을 선별해 둡니다.", stats: [10, 10, 10, 90, 75], labels: ['빈티지', '희소성', '비주얼', '쇼핑잼', '무드'], img: "gift" },
+            { name: "키치키치", cate: "쇼핑", desc: "톡톡 튀는 컬러와 키치한 디자인의 소품들이 가득합니다.", stats: [10, 10, 10, 88, 85], labels: ['팝한컬러', '키치함', '비주얼', '쇼핑잼', '트렌디'], img: "kitsch" },
+            { name: "꾸꾸", cate: "쇼핑", desc: "다꾸(다이어리 꾸미기) 용품의 천국, 스티커 종류가 엄청납니다.", stats: [10, 10, 10, 92, 90], labels: ['다꾸템', '종류', '비주얼', '쇼핑잼', '가성비'], img: "diary" },
+            { name: "아누타", cate: "쇼핑", desc: "차분하고 고급스러운 인테리어 오브제를 제안하는 공간입니다.", stats: [10, 10, 10, 85, 75], labels: ['고급미', '심플함', '비주얼', '쇼핑잼', '오브제'], img: "shop" }
         ];
 
-        function renderCards(filter = 'all') {
+        // 카드 렌더링 함수
+        function renderCards() {
             const container = document.getElementById('grid-container');
             container.innerHTML = "";
-            const filtered = filter === 'all' ? locations : locations.filter(l => l.cate === filter);
-            filtered.forEach(loc => {
-                container.innerHTML += `
-                    <div class="bg-white rounded-[1.5rem] overflow-hidden shadow-md border border-red-50">
-                        <img src="${loc.img}" class="w-full h-40 object-cover">
-                        <div class="p-5">
-                            <span class="text-[10px] text-red-500 font-bold">${loc.cate}</span>
-                            <h4 class="font-bold my-1">${loc.name}</h4>
-                            <p class="text-xs text-slate-400 mb-4">${loc.desc}</p>
-                            <a href="https://map.naver.com/p/search/${encodeURIComponent(loc.name)}" target="_blank" class="block text-center py-2 bg-slate-50 rounded-lg text-xs font-bold hover:bg-red-500 hover:text-white transition-all">네이버 지도</a>
+            
+            locations.forEach((loc, idx) => {
+                const card = document.createElement('div');
+                card.className = "place-card flex flex-col shadow-2xl";
+                
+                const canvasId = `chart-${idx}`;
+                const imgUrl = `https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=600&q=80`;
+
+                card.innerHTML = `
+                    <div class="h-40 bg-slate-200 overflow-hidden relative">
+                        <img src="https://source.unsplash.com/featured/?${loc.img},holiday" class="w-full h-full object-cover" onerror="this.src='${imgUrl}'">
+                        <div class="absolute top-4 left-4 bg-red-600 text-white text-[10px] px-2 py-1 rounded-full font-bold uppercase">${loc.cate}</div>
+                    </div>
+                    <div class="p-6 flex-grow flex flex-col">
+                        <h4 class="text-xl font-black mb-2">${loc.name}</h4>
+                        <p class="text-xs text-slate-500 leading-relaxed mb-4">${loc.desc}</p>
+                        
+                        <div class="chart-container">
+                            <canvas id="${canvasId}"></canvas>
                         </div>
-                    </div>`;
+
+                        <a href="https://map.naver.com/p/search/${encodeURIComponent(loc.name)}" target="_blank" class="mt-4 block w-full text-center py-3 bg-slate-100 rounded-xl text-xs font-bold hover:bg-red-600 hover:text-white transition-all">네이버 지도</a>
+                    </div>
+                `;
+                container.appendChild(card);
+                
+                // 차트 생성 (데이터가 렌더링 된 직후 실행)
+                setTimeout(() => createRadarChart(canvasId, loc.labels, loc.stats), 10);
             });
         }
 
-        function switchTab(id) {
-            document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
-            document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('nav-active', 'text-red-600'));
-            document.getElementById(id).classList.add('active');
-            event.target.classList.add('nav-active', 'text-red-600');
-            if(id === 'food-stats') initChart();
-        }
-
-        function filterItems(cate) {
-            document.querySelectorAll('.category-tab').forEach(t => t.classList.remove('active'));
-            event.target.classList.add('active');
-            renderCards(cate);
-        }
-
-        function initChart() {
-            const ctx = document.getElementById('chart-baro').getContext('2d');
+        // Radar Chart 생성 함수
+        function createRadarChart(id, labels, data) {
+            const ctx = document.getElementById(id).getContext('2d');
             new Chart(ctx, {
                 type: 'radar',
                 data: {
-                    labels: ['꾸덕함', '달콤함', '매콤함', '가성비', '중독성'],
+                    labels: labels,
                     datasets: [{
-                        label: '바로그집 지표',
-                        data: [95, 90, 40, 70, 85],
+                        data: data,
                         backgroundColor: 'rgba(212, 36, 38, 0.2)',
                         borderColor: '#D42426',
+                        pointRadius: 0,
+                        borderWidth: 2
                     }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        r: {
+                            min: 0,
+                            max: 100,
+                            ticks: { display: false },
+                            grid: { color: 'rgba(0,0,0,0.05)' },
+                            pointLabels: { font: { size: 9, weight: 'bold' } }
+                        }
+                    },
+                    plugins: { legend: { display: false } }
                 }
             });
         }
 
-        // 눈 효과
-        setInterval(() => {
+        // 눈 내리는 효과 (배경이 어두워져 더 잘 보임)
+        function createSnow() {
+            const container = document.getElementById('snow-container');
             const flake = document.createElement('div');
-            flake.className = 'snow';
+            flake.classList.add('snow');
             flake.innerHTML = '❄';
             flake.style.left = Math.random() * 100 + 'vw';
-            flake.style.animationDuration = Math.random() * 3 + 2 + 's';
-            flake.style.opacity = Math.random();
-            document.getElementById('snow-container').appendChild(flake);
-            setTimeout(() => flake.remove(), 5000);
-        }, 200);
+            flake.style.opacity = Math.random() * 0.7 + 0.3;
+            flake.style.fontSize = Math.random() * 15 + 10 + 'px';
+            flake.style.animationDuration = Math.random() * 3 + 5 + 's';
+            container.appendChild(flake);
+            setTimeout(() => flake.remove(), 8000);
+        }
 
-        window.onload = () => renderCards();
+        function switchTab(id) {
+            document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('nav-active'));
+            document.getElementById(id).classList.add('active');
+            event.target.classList.add('nav-active');
+            if(id === 'all-places') renderCards();
+        }
+
+        setInterval(createSnow, 200);
+        window.onload = () => {
+            // 초기 로딩 시에도 장소 리스트를 그려줌 (선택 사항)
+            renderCards(); 
+        };
     </script>
 </body>
 </html>
