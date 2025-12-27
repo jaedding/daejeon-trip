@@ -1,223 +1,223 @@
-!DOCTYPE html
-html lang=ko
-head
-    meta charset=UTF-8
-    meta name=viewport content=width=device-width, initial-scale=1.0
-    title2025-2026 대전 연말 힐링 투어title
-    script src=httpscdn.tailwindcss.comscript
-    script src=httpscdn.jsdelivr.netnpmchart.jsscript
-    style
-        @import url('httpsfonts.googleapis.comcss2family=Pretendardwght@300;400;600;800&display=swap');
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2025-2026 대전 연말 힐링 투어</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;600;800&display=swap');
         
-        root {
-            --holiday-red #D42426;
-            --holiday-gold #D4B483;
-            --holiday-green #165B33;
+        :root {
+            --holiday-red: #D42426;
+            --holiday-gold: #D4B483;
+            --holiday-green: #165B33;
         }
 
         body { 
-            font-family 'Pretendard', sans-serif; 
-            scroll-behavior smooth;
-            background-color #FFFDFB;
+            font-family: 'Pretendard', sans-serif; 
+            scroll-behavior: smooth;
+            background-color: #FFFDFB;
         }
 
-         연말 분위기 애니메이션 배경 
+        /* 연말 분위기 애니메이션 배경 */
         .holiday-bg {
-            background linear-gradient(rgba(255,255,255,0.9), rgba(255,255,255,0.9)), 
-                        url('httpsimages.unsplash.comphoto-1543589077-47d816067f70auto=format&fit=crop&w=1920&q=80');
-            background-attachment fixed;
-            background-size cover;
+            background: linear-gradient(rgba(255,255,255,0.9), rgba(255,255,255,0.9)), 
+                        url('https://images.unsplash.com/photo-1543589077-47d816067f70?auto=format&fit=crop&w=1920&q=80');
+            background-attachment: fixed;
+            background-size: cover;
         }
 
         .nav-active {
-            color var(--holiday-red);
-            border-bottom 3px solid var(--holiday-red);
+            color: var(--holiday-red);
+            border-bottom: 3px solid var(--holiday-red);
         }
 
         .place-card {
-            transition all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
-        .place-cardhover {
-            transform scale(1.02);
-            box-shadow 0 25px 50px -12px rgba(212, 36, 38, 0.15);
+        .place-card:hover {
+            transform: scale(1.02);
+            box-shadow: 0 25px 50px -12px rgba(212, 36, 38, 0.15);
         }
 
         .radar-chart-container {
-            width 100%;
-            height 180px;
-            margin-top 10px;
+            width: 100%;
+            height: 180px;
+            margin-top: 10px;
         }
 
         .snow-flake {
-            position fixed;
-            top -10px;
-            z-index 9999;
-            color white;
-            text-shadow 0 0 5px rgba(0,0,0,0.1);
-            pointer-events none;
-            animation fall linear infinite;
+            position: fixed;
+            top: -10px;
+            z-index: 9999;
+            color: white;
+            text-shadow: 0 0 5px rgba(0,0,0,0.1);
+            pointer-events: none;
+            animation: fall linear infinite;
         }
 
         @keyframes fall {
-            to { transform translateY(105vh) rotate(360deg); }
+            to { transform: translateY(105vh) rotate(360deg); }
         }
 
         .category-tab.active {
-            background-color var(--holiday-red);
-            color white;
-            border-color var(--holiday-red);
+            background-color: var(--holiday-red);
+            color: white;
+            border-color: var(--holiday-red);
         }
-    style
-head
-body class=holiday-bg text-slate-800
+    </style>
+</head>
+<body class="holiday-bg text-slate-800">
 
-    div id=snow-containerdiv
+    <div id="snow-container"></div>
 
-    header class=pt-24 pb-20 px-6 text-center
-        div class=max-w-4xl mx-auto
-            div class=inline-block bg-red-100 text-red-600 px-6 py-2 rounded-full text-sm font-bold mb-6 shadow-sm
+    <header class="pt-24 pb-20 px-6 text-center">
+        <div class="max-w-4xl mx-auto">
+            <div class="inline-block bg-red-100 text-red-600 px-6 py-2 rounded-full text-sm font-bold mb-6 shadow-sm">
                 🎄 2025.12.30 - 2026.01.01 GOODBYE & HELLO
-            div
-            h1 class=text-5xl mdtext-7xl font-black tracking-tight mb-8 text-slate-900
-                대전 span class=text-red-600빵span긋 연말 가이드
-            h1
-            p class=text-slate-500 text-xl font-light leading-relaxed
-                한 해를 마무리하고 새해를 맞이하는 대전 37곳의 힐링 스팟.br
+            </div>
+            <h1 class="text-5xl md:text-7xl font-black tracking-tight mb-8 text-slate-900">
+                대전 <span class="text-red-600">빵</span>긋 연말 가이드
+            </h1>
+            <p class="text-slate-500 text-xl font-light leading-relaxed">
+                한 해를 마무리하고 새해를 맞이하는 대전 37곳의 힐링 스팟.<br>
                 네이버 지도 기반 카테고리로 더 똑똑하게 여행하세요.
-            p
-        div
-    header
+            </p>
+        </div>
+    </header>
 
-    nav class=sticky top-0 z-50 bg-white80 backdrop-blur-xl border-b border-red-50 shadow-md
-        div class=max-w-6xl mx-auto px-4 flex justify-around overflow-x-auto no-scrollbar
-            button onclick=switchTab('itinerary') class=nav-btn nav-active px-6 py-5 text-base font-extrabold whitespace-nowrap📅 추천 일정button
-            button onclick=switchTab('all-places') class=nav-btn text-slate-400 px-6 py-5 text-base font-extrabold whitespace-nowrap📍 장소별 탐색button
-            button onclick=switchTab('food-stats') class=nav-btn text-slate-400 px-6 py-5 text-base font-extrabold whitespace-nowrap🍢 떡볶이 분석button
-        div
-    nav
+    <nav class="sticky top-0 z-50 bg-white/80 backdrop-blur-xl border-b border-red-50 shadow-md">
+        <div class="max-w-6xl mx-auto px-4 flex justify-around overflow-x-auto no-scrollbar">
+            <button onclick="switchTab('itinerary')" class="nav-btn nav-active px-6 py-5 text-base font-extrabold whitespace-nowrap">📅 추천 일정</button>
+            <button onclick="switchTab('all-places')" class="nav-btn text-slate-400 px-6 py-5 text-base font-extrabold whitespace-nowrap">📍 장소별 탐색</button>
+            <button onclick="switchTab('food-stats')" class="nav-btn text-slate-400 px-6 py-5 text-base font-extrabold whitespace-nowrap">🍢 떡볶이 분석</button>
+        </div>
+    </nav>
 
-    main class=max-w-6xl mx-auto p-6 mt-12
+    <main class="max-w-6xl mx-auto p-6 mt-12">
 
-        section id=itinerary class=tab-content active animate-fadeIn
-            div class=grid grid-cols-1 lggrid-cols-3 gap-8
-                div class=bg-white rounded-[2.5rem] p-8 shadow-xl border-t-8 border-red-500 relative overflow-hidden
-                    div class=absolute top-4 right-6 text-red-100 text-6xl font-black italic30div
-                    h3 class=text-2xl font-black mb-6 text-red-600Day 1 설렘의 시작h3
-                    p class=text-sm text-slate-400 mb-8 font-bold2025년 12월 30일 (화)p
-                    ul class=space-y-6
-                        li class=flex gap-4
-                            span class=bg-red-50 text-red-600 w-12 h-6 rounded-full text-[10px] flex items-center justify-center font-bold shrink-0 mt-11300span
-                            divp class=font-bold바로그집 본점pp class=text-xs text-slate-400대전역 도착 후 첫 식사pdiv
-                        li
-                        li class=flex gap-4
-                            span class=bg-red-50 text-red-600 w-12 h-6 rounded-full text-[10px] flex items-center justify-center font-bold shrink-0 mt-11530span
-                            divp class=font-bold성심당 & 케익부띠끄pp class=text-xs text-slate-400연말 케이크 예약 및 빵 투어pdiv
-                        li
-                        li class=flex gap-4
-                            span class=bg-red-50 text-red-600 w-12 h-6 rounded-full text-[10px] flex items-center justify-center font-bold shrink-0 mt-11900span
-                            divp class=font-bold별난집pp class=text-xs text-slate-400두부두루치기로 든든한 저녁pdiv
-                        li
-                    ul
-                div
+        <section id="itinerary" class="tab-content active animate-fadeIn">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <div class="bg-white rounded-[2.5rem] p-8 shadow-xl border-t-8 border-red-500 relative overflow-hidden">
+                    <div class="absolute top-4 right-6 text-red-100 text-6xl font-black italic">30</div>
+                    <h3 class="text-2xl font-black mb-6 text-red-600">Day 1: 설렘의 시작</h3>
+                    <p class="text-sm text-slate-400 mb-8 font-bold">2025년 12월 30일 (화)</p>
+                    <ul class="space-y-6">
+                        <li class="flex gap-4">
+                            <span class="bg-red-50 text-red-600 w-12 h-6 rounded-full text-[10px] flex items-center justify-center font-bold shrink-0 mt-1">13:00</span>
+                            <div><p class="font-bold">바로그집 본점</p><p class="text-xs text-slate-400">대전역 도착 후 첫 식사</p></div>
+                        </li>
+                        <li class="flex gap-4">
+                            <span class="bg-red-50 text-red-600 w-12 h-6 rounded-full text-[10px] flex items-center justify-center font-bold shrink-0 mt-1">15:30</span>
+                            <div><p class="font-bold">성심당 & 케익부띠끄</p><p class="text-xs text-slate-400">연말 케이크 예약 및 빵 투어</p></div>
+                        </li>
+                        <li class="flex gap-4">
+                            <span class="bg-red-50 text-red-600 w-12 h-6 rounded-full text-[10px] flex items-center justify-center font-bold shrink-0 mt-1">19:00</span>
+                            <div><p class="font-bold">별난집</p><p class="text-xs text-slate-400">두부두루치기로 든든한 저녁</p></div>
+                        </li>
+                    </ul>
+                </div>
 
-                div class=bg-white rounded-[2.5rem] p-8 shadow-xl border-t-8 border-amber-500 relative
-                    div class=absolute top-4 right-6 text-amber-100 text-6xl font-black italic31div
-                    h3 class=text-2xl font-black mb-6 text-amber-600Day 2 2025 안녕h3
-                    p class=text-sm text-slate-400 mb-8 font-bold2025년 12월 31일 (수)p
-                    ul class=space-y-6
-                        li class=flex gap-4
-                            span class=bg-amber-50 text-amber-600 w-12 h-6 rounded-full text-[10px] flex items-center justify-center font-bold shrink-0 mt-11100span
-                            divp class=font-bold한밭수목원 산책pp class=text-xs text-slate-400겨울 정원의 정취 느끼기pdiv
-                        li
-                        li class=flex gap-4
-                            span class=bg-amber-50 text-amber-600 w-12 h-6 rounded-full text-[10px] flex items-center justify-center font-bold shrink-0 mt-11500span
-                            divp class=font-bold소품샵 투어pp class=text-xs text-slate-400프렐류드 ~ 소소로와 투어pdiv
-                        li
-                        li class=flex gap-4
-                            span class=bg-amber-50 text-amber-600 w-12 h-6 rounded-full text-[10px] flex items-center justify-center font-bold shrink-0 mt-12300span
-                            divp class=font-bold대전엑스포공원pp class=text-xs text-red-500 font-bold카운트다운 야경 감상pdiv
-                        li
-                    ul
-                div
+                <div class="bg-white rounded-[2.5rem] p-8 shadow-xl border-t-8 border-amber-500 relative">
+                    <div class="absolute top-4 right-6 text-amber-100 text-6xl font-black italic">31</div>
+                    <h3 class="text-2xl font-black mb-6 text-amber-600">Day 2: 2025 안녕</h3>
+                    <p class="text-sm text-slate-400 mb-8 font-bold">2025년 12월 31일 (수)</p>
+                    <ul class="space-y-6">
+                        <li class="flex gap-4">
+                            <span class="bg-amber-50 text-amber-600 w-12 h-6 rounded-full text-[10px] flex items-center justify-center font-bold shrink-0 mt-1">11:00</span>
+                            <div><p class="font-bold">한밭수목원 산책</p><p class="text-xs text-slate-400">겨울 정원의 정취 느끼기</p></div>
+                        </li>
+                        <li class="flex gap-4">
+                            <span class="bg-amber-50 text-amber-600 w-12 h-6 rounded-full text-[10px] flex items-center justify-center font-bold shrink-0 mt-1">15:00</span>
+                            <div><p class="font-bold">소품샵 투어</p><p class="text-xs text-slate-400">프렐류드 ~ 소소로와 투어</p></div>
+                        </li>
+                        <li class="flex gap-4">
+                            <span class="bg-amber-50 text-amber-600 w-12 h-6 rounded-full text-[10px] flex items-center justify-center font-bold shrink-0 mt-1">23:00</span>
+                            <div><p class="font-bold">대전엑스포공원</p><p class="text-xs text-red-500 font-bold">카운트다운 야경 감상</p></div>
+                        </li>
+                    </ul>
+                </div>
 
-                div class=bg-white rounded-[2.5rem] p-8 shadow-xl border-t-8 border-green-600 relative
-                    div class=absolute top-4 right-6 text-green-50 text-6xl font-black italic01div
-                    h3 class=text-2xl font-black mb-6 text-green-700Day 3 반가워 2026h3
-                    p class=text-sm text-slate-400 mb-8 font-bold2026년 1월 1일 (목)p
-                    ul class=space-y-6
-                        li class=flex gap-4
-                            span class=bg-green-50 text-green-600 w-12 h-6 rounded-full text-[10px] flex items-center justify-center font-bold shrink-0 mt-11130span
-                            divp class=font-bold소제동 치앙마이방콕pp class=text-xs text-slate-400새해 첫 이색적인 점심pdiv
-                        li
-                        li class=flex gap-4
-                            span class=bg-green-50 text-green-600 w-12 h-6 rounded-full text-[10px] flex items-center justify-center font-bold shrink-0 mt-11400span
-                            divp class=font-bold윈터커피로스터스pp class=text-xs text-slate-400새해 다짐 적으며 커피 한 잔pdiv
-                        li
-                        li class=flex gap-4
-                            span class=bg-green-50 text-green-600 w-12 h-6 rounded-full text-[10px] flex items-center justify-center font-bold shrink-0 mt-11600span
-                            divp class=font-bold성심당 옛맛솜씨pp class=text-xs text-slate-400가족 선물 구매 후 대전역으로pdiv
-                        li
-                    ul
-                div
-            div
-        section
+                <div class="bg-white rounded-[2.5rem] p-8 shadow-xl border-t-8 border-green-600 relative">
+                    <div class="absolute top-4 right-6 text-green-50 text-6xl font-black italic">01</div>
+                    <h3 class="text-2xl font-black mb-6 text-green-700">Day 3: 반가워 2026</h3>
+                    <p class="text-sm text-slate-400 mb-8 font-bold">2026년 1월 1일 (목)</p>
+                    <ul class="space-y-6">
+                        <li class="flex gap-4">
+                            <span class="bg-green-50 text-green-600 w-12 h-6 rounded-full text-[10px] flex items-center justify-center font-bold shrink-0 mt-1">11:30</span>
+                            <div><p class="font-bold">소제동 치앙마이방콕</p><p class="text-xs text-slate-400">새해 첫 이색적인 점심</p></div>
+                        </li>
+                        <li class="flex gap-4">
+                            <span class="bg-green-50 text-green-600 w-12 h-6 rounded-full text-[10px] flex items-center justify-center font-bold shrink-0 mt-1">14:00</span>
+                            <div><p class="font-bold">윈터커피로스터스</p><p class="text-xs text-slate-400">새해 다짐 적으며 커피 한 잔</p></div>
+                        </li>
+                        <li class="flex gap-4">
+                            <span class="bg-green-50 text-green-600 w-12 h-6 rounded-full text-[10px] flex items-center justify-center font-bold shrink-0 mt-1">16:00</span>
+                            <div><p class="font-bold">성심당 옛맛솜씨</p><p class="text-xs text-slate-400">가족 선물 구매 후 대전역으로</p></div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
 
-        section id=all-places class=tab-content hidden animate-fadeIn
-            div class=flex flex-wrap gap-3 mb-10 justify-center
-                button onclick=filterItems('all') class=category-tab active px-8 py-3 rounded-2xl border border-slate-200 text-sm font-bold shadow-sm transition-all전체button
-                button onclick=filterItems('음식점') class=category-tab px-8 py-3 rounded-2xl border border-slate-200 text-sm font-bold bg-white shadow-sm transition-all🍽️ 음식점button
-                button onclick=filterItems('카페') class=category-tab px-8 py-3 rounded-2xl border border-slate-200 text-sm font-bold bg-white shadow-sm transition-all☕ 카페button
-                button onclick=filterItems('관광') class=category-tab px-8 py-3 rounded-2xl border border-slate-200 text-sm font-bold bg-white shadow-sm transition-all🎡 관광명소button
-                button onclick=filterItems('쇼핑') class=category-tab px-8 py-3 rounded-2xl border border-slate-200 text-sm font-bold bg-white shadow-sm transition-all🛍️ 쇼핑소품샵button
-            div
-            div id=grid-container class=grid grid-cols-1 mdgrid-cols-2 lggrid-cols-3 gap-8
-                div
-        section
+        <section id="all-places" class="tab-content hidden animate-fadeIn">
+            <div class="flex flex-wrap gap-3 mb-10 justify-center">
+                <button onclick="filterItems('all')" class="category-tab active px-8 py-3 rounded-2xl border border-slate-200 text-sm font-bold shadow-sm transition-all">전체</button>
+                <button onclick="filterItems('음식점')" class="category-tab px-8 py-3 rounded-2xl border border-slate-200 text-sm font-bold bg-white shadow-sm transition-all">🍽️ 음식점</button>
+                <button onclick="filterItems('카페')" class="category-tab px-8 py-3 rounded-2xl border border-slate-200 text-sm font-bold bg-white shadow-sm transition-all">☕ 카페</button>
+                <button onclick="filterItems('관광')" class="category-tab px-8 py-3 rounded-2xl border border-slate-200 text-sm font-bold bg-white shadow-sm transition-all">🎡 관광/명소</button>
+                <button onclick="filterItems('쇼핑')" class="category-tab px-8 py-3 rounded-2xl border border-slate-200 text-sm font-bold bg-white shadow-sm transition-all">🛍️ 쇼핑/소품샵</button>
+            </div>
+            <div id="grid-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                </div>
+        </section>
 
-        section id=food-stats class=tab-content hidden animate-fadeIn
-            h2 class=text-3xl font-black text-center mb-12🍡 떡볶이 명가 5요소 분석h2
-            div class=grid grid-cols-1 mdgrid-cols-3 gap-10
-                div class=bg-white p-8 rounded-[3rem] shadow-xl border border-red-50
-                    h4 class=text-xl font-bold text-center mb-4바로그집 본점h4
-                    div class=radar-chart-containercanvas id=chart-barocanvasdiv
-                    p class=mt-4 text-xs text-center text-slate-400#부드러움 #아이스크림양념 #대전1티어p
-                div
-                div class=bg-white p-8 rounded-[3rem] shadow-xl border border-red-50
-                    h4 class=text-xl font-bold text-center mb-4수연분식h4
-                    div class=radar-chart-containercanvas id=chart-suyeoncanvasdiv
-                    p class=mt-4 text-xs text-center text-slate-400#시장맛 #매콤함 #가성비폭발p
-                div
-                div class=bg-white p-8 rounded-[3rem] shadow-xl border border-red-50
-                    h4 class=text-xl font-bold text-center mb-4에이스분식h4
-                    div class=radar-chart-containercanvas id=chart-acecanvasdiv
-                    p class=mt-4 text-xs text-center text-slate-400#학교앞 #튀김조합 #추억의맛p
-                div
-            div
-        section
+        <section id="food-stats" class="tab-content hidden animate-fadeIn">
+            <h2 class="text-3xl font-black text-center mb-12">🍡 떡볶이 명가 5요소 분석</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+                <div class="bg-white p-8 rounded-[3rem] shadow-xl border border-red-50">
+                    <h4 class="text-xl font-bold text-center mb-4">바로그집 본점</h4>
+                    <div class="radar-chart-container"><canvas id="chart-baro"></canvas></div>
+                    <p class="mt-4 text-xs text-center text-slate-400">#부드러움 #아이스크림양념 #대전1티어</p>
+                </div>
+                <div class="bg-white p-8 rounded-[3rem] shadow-xl border border-red-50">
+                    <h4 class="text-xl font-bold text-center mb-4">수연분식</h4>
+                    <div class="radar-chart-container"><canvas id="chart-suyeon"></canvas></div>
+                    <p class="mt-4 text-xs text-center text-slate-400">#시장맛 #매콤함 #가성비폭발</p>
+                </div>
+                <div class="bg-white p-8 rounded-[3rem] shadow-xl border border-red-50">
+                    <h4 class="text-xl font-bold text-center mb-4">에이스분식</h4>
+                    <div class="radar-chart-container"><canvas id="chart-ace"></canvas></div>
+                    <p class="mt-4 text-xs text-center text-slate-400">#학교앞 #튀김조합 #추억의맛</p>
+                </div>
+            </div>
+        </section>
 
-    main
+    </main>
 
-    script
-         네이버 지도 기준 카테고리 재분류 데이터
+    <script>
+        // 네이버 지도 기준 카테고리 재분류 데이터
         const locations = [
-            { name 대전엑스포공원, cate 관광, desc 한빛탑의 화려한 미디어파사드와 카운트다운 야경 명소., img night },
-            { name 한밭수목원, cate 관광, desc 도심 속 겨울 숲의 고요함을 느낄 수 있는 산책로., img park },
-            { name 성심당본점, cate 카페, desc 대전의 자부심, 연말 선물용 빵 쇼핑 필수 코스., img bakery },
-            { name 바로그집, cate 음식점, desc 한 번 먹으면 잊을 수 없는 꾸덕한 아이스크림 떡볶이., img koreanfood },
-            { name 치앙마이방콕, cate 음식점, desc 겨울에도 따뜻한 동남아 휴양지 기분을 선사하는 곳., img thai },
-            { name the prelude shop, cate 쇼핑, desc 새해 다이어리와 문구를 준비하기 가장 좋은 곳., img shop },
-            { name 로지호텔, cate 관광, desc 연말 분위기 가득한 감성적이고 따뜻한 숙소., img hotel },
-            { name 오시우커피, cate 카페, desc 흑임자 아이스크림 라떼로 당 충전하기 좋은 곳., img coffee },
-            { name 성심당케익부띠끄, cate 카페, desc 연말 파티를 위한 화려한 케이크의 향연., img cake },
-            { name 소소로와, cate 쇼핑, desc 대전 작가들의 따뜻한 감성이 담긴 굿즈 편집샵., img gift }
-             ... (기존 37개 데이터가 동일한 형식으로 확장됨을 가정)
+            { name: "대전엑스포공원", cate: "관광", desc: "한빛탑의 화려한 미디어파사드와 카운트다운 야경 명소.", img: "night" },
+            { name: "한밭수목원", cate: "관광", desc: "도심 속 겨울 숲의 고요함을 느낄 수 있는 산책로.", img: "park" },
+            { name: "성심당본점", cate: "카페", desc: "대전의 자부심, 연말 선물용 빵 쇼핑 필수 코스.", img: "bakery" },
+            { name: "바로그집", cate: "음식점", desc: "한 번 먹으면 잊을 수 없는 꾸덕한 아이스크림 떡볶이.", img: "koreanfood" },
+            { name: "치앙마이방콕", cate: "음식점", desc: "겨울에도 따뜻한 동남아 휴양지 기분을 선사하는 곳.", img: "thai" },
+            { name: "the prelude shop", cate: "쇼핑", desc: "새해 다이어리와 문구를 준비하기 가장 좋은 곳.", img: "shop" },
+            { name: "로지호텔", cate: "관광", desc: "연말 분위기 가득한 감성적이고 따뜻한 숙소.", img: "hotel" },
+            { name: "오시우커피", cate: "카페", desc: "흑임자 아이스크림 라떼로 당 충전하기 좋은 곳.", img: "coffee" },
+            { name: "성심당케익부띠끄", cate: "카페", desc: "연말 파티를 위한 화려한 케이크의 향연.", img: "cake" },
+            { name: "소소로와", cate: "쇼핑", desc: "대전 작가들의 따뜻한 감성이 담긴 굿즈 편집샵.", img: "gift" }
+            // ... (기존 37개 데이터가 동일한 형식으로 확장됨을 가정)
         ];
 
-         탭 전환 및 필터 기능
+        // 탭 전환 및 필터 기능
         function switchTab(tabId) {
-            document.querySelectorAll('.tab-content').forEach(t = t.classList.add('hidden'));
-            document.querySelectorAll('.nav-btn').forEach(b = b.classList.remove('nav-active', 'text-red-600'));
+            document.querySelectorAll('.tab-content').forEach(t => t.classList.add('hidden'));
+            document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('nav-active', 'text-red-600'));
             
             document.getElementById(tabId).classList.remove('hidden');
             event.currentTarget.classList.add('nav-active', 'text-red-600');
@@ -226,64 +226,64 @@ body class=holiday-bg text-slate-800
         }
 
         function filterItems(category) {
-            document.querySelectorAll('.category-tab').forEach(t = t.classList.remove('active'));
+            document.querySelectorAll('.category-tab').forEach(t => t.classList.remove('active'));
             event.target.classList.add('active');
             renderCards(category);
         }
 
         function renderCards(filter = 'all') {
             const container = document.getElementById('grid-container');
-            container.innerHTML = ;
-            const filtered = filter === 'all'  locations  locations.filter(l = l.cate === filter);
+            container.innerHTML = "";
+            const filtered = filter === 'all' ? locations : locations.filter(l => l.cate === filter);
 
-            filtered.forEach((loc, idx) = {
+            filtered.forEach((loc, idx) => {
                 const card = document.createElement('div');
-                card.className = place-card bg-white rounded-[2rem] border border-red-50 overflow-hidden shadow-lg flex flex-col h-[420px];
+                card.className = "place-card bg-white rounded-[2rem] border border-red-50 overflow-hidden shadow-lg flex flex-col h-[420px]";
                 
-                 이미지 서비스 링크 (키워드 기반 최적화)
-                const imgUrl = `httpsimages.unsplash.comphoto-1550524514-9636edba3118auto=format&fit=crop&w=600&q=80`;
+                // 이미지 서비스 링크 (키워드 기반 최적화)
+                const imgUrl = `https://images.unsplash.com/photo-1550524514-9636edba3118?auto=format&fit=crop&w=600&q=80`;
 
                 card.innerHTML = `
-                    div class=h-48 overflow-hidden relative
-                        img src=httpssource.unsplash.comfeatured${loc.img},holiday class=w-full h-full object-cover onerror=this.src='${imgUrl}'
-                        div class=absolute top-4 left-4 bg-white90 backdrop-blur px-3 py-1 rounded-full text-[10px] font-black text-red-600 shadow-sm${loc.cate}div
-                    div
-                    div class=p-8 flex flex-col justify-between flex-grow
-                        div
-                            h4 class=text-xl font-black mb-3${loc.name}h4
-                            p class=text-slate-400 text-sm leading-relaxed${loc.desc}p
-                        div
-                        a href=httpsmap.naver.compsearch${encodeURIComponent(loc.name)} target=_blank class=block w-full text-center py-4 bg-red-50 text-red-600 rounded-2xl text-xs font-bold hoverbg-red-600 hovertext-white transition-all네이버 지도에서 보기a
-                    div
+                    <div class="h-48 overflow-hidden relative">
+                        <img src="https://source.unsplash.com/featured/?${loc.img},holiday" class="w-full h-full object-cover" onerror="this.src='${imgUrl}'">
+                        <div class="absolute top-4 left-4 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-[10px] font-black text-red-600 shadow-sm">${loc.cate}</div>
+                    </div>
+                    <div class="p-8 flex flex-col justify-between flex-grow">
+                        <div>
+                            <h4 class="text-xl font-black mb-3">${loc.name}</h4>
+                            <p class="text-slate-400 text-sm leading-relaxed">${loc.desc}</p>
+                        </div>
+                        <a href="https://map.naver.com/p/search/${encodeURIComponent(loc.name)}" target="_blank" class="block w-full text-center py-4 bg-red-50 text-red-600 rounded-2xl text-xs font-bold hover:bg-red-600 hover:text-white transition-all">네이버 지도에서 보기</a>
+                    </div>
                 `;
                 container.appendChild(card);
             });
         }
 
-         오각형 차트 초기화 (Chart.js)
+        // 오각형 차트 초기화 (Chart.js)
         function initCharts() {
             const stats = {
-                baro [95, 80, 70, 90, 85],
-                suyeon [70, 90, 85, 60, 95],
-                ace [80, 75, 90, 70, 80]
+                baro: [95, 80, 70, 90, 85],
+                suyeon: [70, 90, 85, 60, 95],
+                ace: [80, 75, 90, 70, 80]
             };
             const labels = ['꾸덕함', '매콤함', '가성비', '유니크', '중독성'];
 
-            const createChart = (id, data) = {
+            const createChart = (id, data) => {
                 new Chart(document.getElementById(id), {
-                    type 'radar',
-                    data {
-                        labels labels,
-                        datasets [{
-                            data data,
-                            backgroundColor 'rgba(212, 36, 38, 0.2)',
-                            borderColor '#D42426',
-                            pointBackgroundColor '#D42426',
+                    type: 'radar',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            data: data,
+                            backgroundColor: 'rgba(212, 36, 38, 0.2)',
+                            borderColor: '#D42426',
+                            pointBackgroundColor: '#D42426',
                         }]
                     },
-                    options { 
-                        scales { r { min 0, max 100, ticks { display false } } },
-                        plugins { legend { display false } }
+                    options: { 
+                        scales: { r: { min: 0, max: 100, ticks: { display: false } } },
+                        plugins: { legend: { display: false } }
                     }
                 });
             };
@@ -293,22 +293,22 @@ body class=holiday-bg text-slate-800
             createChart('chart-ace', stats.ace);
         }
 
-         눈 내리는 효과 JS
+        // 눈 내리는 효과 JS
         function createSnow() {
             const container = document.getElementById('snow-container');
             const flake = document.createElement('div');
             flake.classList.add('snow-flake');
             flake.innerHTML = '❄';
-            flake.style.left = Math.random()  100 + 'vw';
+            flake.style.left = Math.random() * 100 + 'vw';
             flake.style.opacity = Math.random();
-            flake.style.fontSize = Math.random()  10 + 10 + 'px';
-            flake.style.animationDuration = Math.random()  3 + 7 + 's';
+            flake.style.fontSize = Math.random() * 10 + 10 + 'px';
+            flake.style.animationDuration = Math.random() * 3 + 7 + 's';
             container.appendChild(flake);
-            setTimeout(() = flake.remove(), 10000);
+            setTimeout(() => flake.remove(), 10000);
         }
 
         setInterval(createSnow, 300);
-        window.onload = () = renderCards();
-    script
-body
-html
+        window.onload = () => renderCards();
+    </script>
+</body>
+</html>
